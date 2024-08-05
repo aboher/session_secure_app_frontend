@@ -1,0 +1,233 @@
+import { useState } from "react";
+
+export function FirstAndLastNameFields({
+  firstName,
+  firstNameIsValid,
+  firstNameRef,
+  setFirstName,
+  lastName,
+  lastNameIsValid,
+  setLasttName,
+}) {
+  return (
+    <div className="row mb-3">
+      <div className="col">
+        <label htmlFor="firstName" className="form-label">
+          First name:
+        </label>
+        <input
+          type="text"
+          id="firstName"
+          className={`form-control ${
+            firstName && (firstNameIsValid ? "is-valid" : "is-invalid")
+          }`}
+          ref={firstNameRef}
+          onChange={(e) => setFirstName(e.target.value)}
+          required
+          aria-invalid={firstNameIsValid ? "false" : "true"}
+          aria-describedby="fistnamenote"
+        />
+        <div className="valid-feedback">Looks good!</div>
+        <div className="invalid-feedback">
+          <p id="firstnamenote">
+            <i className="bi bi-info-circle-fill"></i>
+            <span> </span>
+            No numbers allowed
+          </p>
+        </div>
+      </div>
+      <div className="col">
+        <label htmlFor="lastName" className="form-label">
+          Last name:
+        </label>
+        <input
+          type="text"
+          id="lastName"
+          className={`form-control ${
+            lastName && (lastNameIsValid ? "is-valid" : "is-invalid")
+          }`}
+          onChange={(e) => setLasttName(e.target.value)}
+          required
+          aria-invalid={lastNameIsValid ? "false" : "true"}
+          aria-describedby="lastnamenote"
+        />
+        <div className="valid-feedback">Looks good!</div>
+        <div className="invalid-feedback">
+          <p id="lastnamenote">
+            <i className="bi bi-info-circle-fill"></i>
+            <span> </span>
+            No numbers allowed
+          </p>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+export function EmailField({ email, emailIsValid, setEmail }) {
+  return (
+    <div className="mb-3">
+      <label htmlFor="email" className="form-label">
+        Email:
+      </label>
+      <input
+        type="email"
+        id="email"
+        className={`form-control ${
+          email && (emailIsValid ? "is-valid" : "is-invalid")
+        }`}
+        onChange={(e) => setEmail(e.target.value)}
+        required
+        aria-invalid={emailIsValid ? "false" : "true"}
+        aria-describedby="emailnote"
+      />
+      <div className="valid-feedback">Looks good!</div>
+      <div className="invalid-feedback">
+        <p id="emailnote">
+          <i className="bi bi-info-circle-fill"></i>
+          <span> </span>
+          Invalid email
+        </p>
+      </div>
+    </div>
+  );
+}
+
+export function UsernameField({ username, usernameIsValid, setUsername }) {
+  return (
+    <div className="mb-3">
+      <label htmlFor="username" className="form-label">
+        Username:
+      </label>
+      <input
+        type="text"
+        id="username"
+        className={`form-control ${
+          username && (usernameIsValid ? "is-valid" : "is-invalid")
+        }`}
+        autoComplete="off"
+        onChange={(e) => setUsername(e.target.value)}
+        required
+        aria-invalid={usernameIsValid ? "false" : "true"}
+        aria-describedby="uidnote"
+      />
+      <div className="valid-feedback">Looks good!</div>
+      <div className="invalid-feedback">
+        <p id="uidnote">
+          <i className="bi bi-info-circle-fill"></i>
+          <span> </span>
+          4 to 24 characters.
+          <br />
+          Must begin with a letter.
+          <br />
+          Letters, numbers, underscores, hyphens allowed.
+        </p>
+      </div>
+    </div>
+  );
+}
+
+export function PasswordField({ password, passwordIsValid, setPassword }) {
+  const [showPwd, setShowPwd] = useState(false);
+
+  const toggleShowPwd = () => {
+    setShowPwd((prevShowPwd) => !prevShowPwd);
+  };
+
+  return (
+    <div className="mb-3">
+      <label htmlFor="password" className="form-label">
+        Password:
+      </label>
+      <div className="input-group">
+        <input
+          type={showPwd ? "text" : "password"}
+          id="password"
+          className={`form-control ${
+            password && (passwordIsValid ? "is-valid" : "is-invalid")
+          }`}
+          onChange={(e) => setPassword(e.target.value)}
+          required
+          aria-invalid={passwordIsValid ? "false" : "true"}
+          aria-describedby="pwdnote"
+        />
+        <span
+          className="input-group-text rounded-end-2"
+          onClick={toggleShowPwd}
+        >
+          {showPwd ? (
+            <i className="bi bi-eye-slash"></i>
+          ) : (
+            <i className="bi bi-eye"></i>
+          )}
+        </span>
+        <div className="valid-feedback">Looks good!</div>
+        <div className="invalid-feedback">
+          <p id="pwdnote">
+            <i className="bi bi-info-circle-fill"></i> 8 to 24 characters.{" "}
+            <br />
+            Must include uppercase and lowercase letters, a number and a special
+            character. <br />
+            Allowed special Characters:
+            <span> </span>
+            <span aria-label="explamation mark">!</span>
+            <span aria-label="at symbol">@</span>
+            <span aria-label="hash tag">#</span>
+            <span aria-label="dolar sign">$</span>
+            <span aria-label="percent">%</span>
+          </p>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+export function MatchPasswordField({
+  matchPassword,
+  matchPasswordIsValid,
+  setMatchPassword,
+}) {
+  const [showMatchPwd, setShowMatchPwd] = useState(false);
+
+  const toggleShowMatchPwd = () => {
+    setShowMatchPwd((prevShowMatchPwd) => !prevShowMatchPwd);
+  };
+
+  return (
+    <div className="mb-3">
+      <label htmlFor="confirm_pwd" className="form-label">
+        Confirm Password:
+      </label>
+      <div className="input-group">
+        <input
+          type={showMatchPwd ? "text" : "password"}
+          id="confirm_pwd"
+          className={`form-control ${
+            matchPassword && (matchPasswordIsValid ? "is-valid" : "is-invalid")
+          }`}
+          onChange={(e) => setMatchPassword(e.target.value)}
+          required
+          aria-invalid={matchPasswordIsValid ? "false" : "true"}
+          aria-describedby="confirmnote"
+        />
+        <span
+          className="input-group-text rounded-end-2"
+          onClick={toggleShowMatchPwd}
+        >
+          {showMatchPwd ? (
+            <i className="bi bi-eye-slash"></i>
+          ) : (
+            <i className="bi bi-eye"></i>
+          )}
+        </span>
+        <div className="valid-feedback">Looks Good!</div>
+        <div className="invalid-feedback">
+          <p id="confirmnote">
+            <i className="bi bi-info-circle-fill"></i> Must match the first
+            password input field.
+          </p>
+        </div>
+      </div>
+    </div>
+  );
+}

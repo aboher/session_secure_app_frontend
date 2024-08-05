@@ -1,12 +1,13 @@
 import "./scss/styles.scss";
 import "bootstrap";
+import "bootstrap-icons/font/bootstrap-icons.css";
 import Navbar from "./components/Navbar";
 import Home from "./pages/Home";
 import { Route, Routes } from "react-router-dom";
-import SignUp from "./pages/SignUp";
+import SignUp from "./pages/signup/SignUp";
 import SignIn from "./pages/SignIn";
 import NotFound from "./pages/NotFound";
-import InventoryRoutes from "./pages/Inventory/InventoryRoutes";
+import InventoryRoutes from "./pages/inventory/InventoryRoutes";
 
 function App() {
   return (
