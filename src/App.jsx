@@ -5,7 +5,7 @@ import Navbar from "./components/Navbar";
 import Home from "./pages/Home";
 import { Route, Routes } from "react-router-dom";
 import SignUp from "./pages/signup/SignUp";
-import SignIn from "./pages/SignIn";
+import SignIn from "./pages/signin/SignIn";
 import NotFound from "./pages/NotFound";
 import InventoryRoutes from "./pages/inventory/InventoryRoutes";
 

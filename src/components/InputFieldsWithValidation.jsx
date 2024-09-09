@@ -1,4 +1,5 @@
 import { useState } from "react";
+import PasswordValidationMessage from "./PasswordValidationMessage";
 
 export function FirstAndLastNameFields({
   firstName,
@@ -161,20 +162,11 @@ export function PasswordField({ password, passwordIsValid, setPassword }) {
             <i className="bi bi-eye"></i>
           )}
         </span>
-        <div className="valid-feedback">Looks good!</div>
-        <div className="invalid-feedback">
+        <div
+          className={passwordIsValid ? "valid-feedback" : "invalid-feedback"}
+        >
           <p id="pwdnote">
-            <i className="bi bi-info-circle-fill"></i> 8 to 24 characters.{" "}
-            <br />
-            Must include uppercase and lowercase letters, a number and a special
-            character. <br />
-            Allowed special Characters:
-            <span> </span>
-            <span aria-label="explamation mark">!</span>
-            <span aria-label="at symbol">@</span>
-            <span aria-label="hash tag">#</span>
-            <span aria-label="dolar sign">$</span>
-            <span aria-label="percent">%</span>
+            <PasswordValidationMessage password={password} />
           </p>
         </div>
       </div>

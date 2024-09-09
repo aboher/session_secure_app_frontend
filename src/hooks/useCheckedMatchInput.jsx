@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 
-const useMatchInput = (regex) => {
+const useCheckedMatchInput = (regex) => {
   const [value, setValue] = useState("");
   const [valueIsValid, setValueIsValid] = useState(false);
 
@@ -22,4 +22,4 @@ const useMatchInput = (regex) => {
   ];
 };
 
-export default useMatchInput;
+export default useCheckedMatchInput;
