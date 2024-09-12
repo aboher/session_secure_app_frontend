@@ -4,6 +4,7 @@ import axios from "../api/axios";
 const AuthContext = createContext({});
 
 const SESSION_INFO_URL = "/auth-info";
+const LOGOUT_URL = "/logout";
 
 export const AuthProvider = ({ children }) => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -38,6 +39,17 @@ export const AuthProvider = ({ children }) => {
     checkAuthentication();
   }, [getSessionInfo, isAuthenticated]);
 
+  const logout = async () => {
+    try {
+      await axios.post(LOGOUT_URL, null, {
+        withCredentials: true,
+      });
+      window.location.reload();
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   return (
     <AuthContext.Provider
       value={{
@@ -45,6 +57,7 @@ export const AuthProvider = ({ children }) => {
         setIsAuthenticated,
         session,
         setSession,
+        logout,
       }}
     >
       {children}

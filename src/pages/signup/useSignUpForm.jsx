@@ -1,10 +1,8 @@
-import { useRef, useState, useEffect, useContext } from "react";
+import { useRef, useState, useEffect } from "react";
 import useInput from "../../hooks/useCheckedInput";
 import useMatchInput from "../../hooks/useCheckedMatchInput";
 import axios from "../../api/axios";
 import { HttpStatusCode } from "axios";
-import AuthContext from "../../context/AuthProvider";
-import { useNavigate } from "react-router-dom";
 
 const SIGNUP_URL = "/users";
 const NAMES_REGEX = /^\D{1,24}$/;
@@ -14,7 +12,6 @@ const PASSWORD_REGEX =
   /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/;
 
 export default function useSignUpForm() {
-  const { isAuthenticated } = useContext(AuthContext);
   const firstNameRef = useRef();
   const errRef = useRef();
   const [firstName, setFirstName, firstNameIsValid] = useInput(NAMES_REGEX);
@@ -32,14 +29,10 @@ export default function useSignUpForm() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
   const [success, setSuccess] = useState(false);
-  const navigate = useNavigate();
 
   useEffect(() => {
-    if (isAuthenticated) {
-      navigate("/");
-    }
     firstNameRef.current.focus();
-  }, [isAuthenticated, navigate]);
+  }, []);
 
   useEffect(() => {
     setErrorMessage("");

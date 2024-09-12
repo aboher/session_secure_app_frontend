@@ -1,13 +1,13 @@
-import { useContext, useEffect, useRef, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useEffect, useRef, useState } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 import axios from "../../api/axios";
 import { HttpStatusCode } from "axios";
-import AuthContext from "../../context/AuthProvider";
+import useAuth from "../../hooks/useAuth";
 
 const SIGNIN_URL = "/login";
 
 export default function useSignInForm() {
-  const { isAuthenticated, setIsAuthenticated } = useContext(AuthContext);
+  const { setIsAuthenticated } = useAuth();
   const [username, setUsername] = useState("");
   const usernameRef = useRef();
   const [password, setPassword] = useState("");
@@ -15,13 +15,12 @@ export default function useSignInForm() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const errorRef = useRef();
   const navigate = useNavigate();
+  const location = useLocation();
+  const from = location.state?.from?.pathname || "/";
 
   useEffect(() => {
-    if (isAuthenticated) {
-      navigate("/");
-    }
     usernameRef.current.focus();
-  }, [isAuthenticated, navigate]);
+  }, []);
 
   useEffect(() => {
     setErrorMessage("");
@@ -54,7 +53,7 @@ export default function useSignInForm() {
       );
       cleanUpInputFields();
       setIsAuthenticated(true);
-      navigate("/");
+      navigate(from, { replace: true });
     } catch (error) {
       if (!error?.response) {
         setErrorMessage("No Server Response");
