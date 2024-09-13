@@ -8,6 +8,7 @@ import SignUp from "./pages/signup/SignUp";
 import SignIn from "./pages/signin/SignIn";
 import NotFound from "./pages/NotFound";
 import InventoryRoutes from "./pages/inventory/InventoryRoutes";
+import RequireUnauth from "./components/RequireUnauth";
 
 function App() {
   return (
@@ -16,8 +17,22 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/inventory/*" element={<InventoryRoutes />} />
-        <Route path="/signup" element={<SignUp />} />
-        <Route path="/signin" element={<SignIn />} />
+        <Route
+          path="/signin"
+          element={
+            <RequireUnauth>
+              <SignIn />
+            </RequireUnauth>
+          }
+        />
+        <Route
+          path="/signup"
+          element={
+            <RequireUnauth>
+              <SignUp />
+            </RequireUnauth>
+          }
+        />
         <Route path="*" element={<NotFound />} />
       </Routes>
     </div>
