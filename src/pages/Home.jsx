@@ -3,7 +3,7 @@ import useAuth from "../hooks/useAuth";
 import { Link } from "react-router-dom";
 
 export default function Home() {
-  const { isAuthenticated, session } = useAuth();
+  const { isAuthenticated, session, loading } = useAuth();
 
   useEffect(() => {
     document.title = "Inventory Management System";
@@ -14,9 +14,10 @@ export default function Home() {
       <h1>Home Page</h1>
       <p>
         Content:{" "}
-        {isAuthenticated
-          ? JSON.stringify(session)
-          : "You are not authenticated"}
+        {!loading &&
+          (isAuthenticated
+            ? JSON.stringify(session)
+            : "You are not authenticated")}
       </p>
       <Link to="/" className="btn btn-primary mb-1">
         Home

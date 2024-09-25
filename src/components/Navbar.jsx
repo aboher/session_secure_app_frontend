@@ -3,7 +3,7 @@ import "./navbar.css";
 import useAuth from "../hooks/useAuth";
 
 export default function Navbar() {
-  const { isAuthenticated, logout } = useAuth();
+  const { isAuthenticated, logout, loading } = useAuth();
 
   return (
     <nav className="navbar navbar-expand-lg bg-body-tertiary sticky-top">
@@ -29,20 +29,21 @@ export default function Navbar() {
         </button>
         <div className="collapse navbar-collapse" id="navbarSupportedContent">
           <ul className="navbar-nav me-auto mb-2 mb-lg-0"></ul>
-          {isAuthenticated ? (
-            <button className="btn btn-outline-success m-1" onClick={logout}>
-              Sign Out
-            </button>
-          ) : (
-            <>
-              <Link className="btn btn-outline-success m-1" to="/signin">
-                Sign In
-              </Link>
-              <Link className="btn btn-outline-success m-1" to="/signup">
-                Sign Up
-              </Link>
-            </>
-          )}
+          {!loading &&
+            (isAuthenticated ? (
+              <button className="btn btn-outline-success m-1" onClick={logout}>
+                Sign Out
+              </button>
+            ) : (
+              <>
+                <Link className="btn btn-outline-success m-1" to="/signin">
+                  Sign In
+                </Link>
+                <Link className="btn btn-outline-success m-1" to="/signup">
+                  Sign Up
+                </Link>
+              </>
+            ))}
         </div>
       </div>
     </nav>

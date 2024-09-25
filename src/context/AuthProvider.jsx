@@ -13,6 +13,7 @@ export const AuthProvider = ({ children }) => {
     roles: [],
     expirationDate: new Date(),
   });
+  const [loading, setLoading] = useState(true);
 
   const getSessionInfo = useCallback(async () => {
     try {
@@ -34,6 +35,7 @@ export const AuthProvider = ({ children }) => {
       const currentSession = await getSessionInfo();
       setSession(currentSession);
       setIsAuthenticated(currentSession ? true : false);
+      setLoading(false);
     };
 
     checkAuthentication();
@@ -58,6 +60,7 @@ export const AuthProvider = ({ children }) => {
         session,
         setSession,
         logout,
+        loading,
       }}
     >
       {children}
