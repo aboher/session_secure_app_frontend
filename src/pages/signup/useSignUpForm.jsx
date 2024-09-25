@@ -7,7 +7,6 @@ import { HttpStatusCode } from "axios";
 const SIGNUP_URL = "/users";
 const NAMES_REGEX = /^\D{1,24}$/;
 const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-const USERNAME_REGEX = /^[A-z][A-z0-9-_]{3,23}$/;
 const PASSWORD_REGEX =
   /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/;
 
@@ -17,7 +16,6 @@ export default function useSignUpForm() {
   const [firstName, setFirstName, firstNameIsValid] = useInput(NAMES_REGEX);
   const [lastName, setLasttName, lastNameIsValid] = useInput(NAMES_REGEX);
   const [email, setEmail, emailIsValid] = useInput(EMAIL_REGEX);
-  const [username, setUsername, usernameIsValid] = useInput(USERNAME_REGEX);
   const [
     password,
     setPassword,
@@ -36,7 +34,7 @@ export default function useSignUpForm() {
 
   useEffect(() => {
     setErrorMessage("");
-  }, [firstName, lastName, email, username, password, matchPassword]);
+  }, [firstName, lastName, email, password, matchPassword]);
 
   useEffect(() => {
     if (errorMessage) {
@@ -62,7 +60,7 @@ export default function useSignUpForm() {
     try {
       await axios.post(
         SIGNUP_URL,
-        { firstName, lastName, email, username, password },
+        { firstName, lastName, email, password },
         {
           headers: { "Content-Type": "application/json" },
           withCredentials: true,
@@ -88,7 +86,6 @@ export default function useSignUpForm() {
       firstNameIsValid &&
       lastNameIsValid &&
       emailIsValid &&
-      usernameIsValid &&
       passwordIsValid &&
       matchPasswordIsValid
     );
@@ -98,7 +95,6 @@ export default function useSignUpForm() {
     setFirstName("");
     setLasttName("");
     setEmail("");
-    setUsername("");
     setPassword("");
     setMatchPassword("");
   }
@@ -115,9 +111,6 @@ export default function useSignUpForm() {
     email,
     setEmail,
     emailIsValid,
-    username,
-    setUsername,
-    usernameIsValid,
     password,
     setPassword,
     passwordIsValid,

@@ -8,8 +8,8 @@ const SIGNIN_URL = "/login";
 
 export default function useSignInForm() {
   const { setIsAuthenticated } = useAuth();
-  const [username, setUsername] = useState("");
-  const usernameRef = useRef();
+  const [email, setEmail] = useState("");
+  const emailRef = useRef();
   const [password, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -19,12 +19,12 @@ export default function useSignInForm() {
   const from = location.state?.from?.pathname || "/";
 
   useEffect(() => {
-    usernameRef.current.focus();
+    emailRef.current.focus();
   }, []);
 
   useEffect(() => {
     setErrorMessage("");
-  }, [username, password]);
+  }, [email, password]);
 
   useEffect(() => {
     if (errorMessage) {
@@ -45,7 +45,7 @@ export default function useSignInForm() {
     try {
       await axios.post(
         SIGNIN_URL,
-        { username, password },
+        { email, password },
         {
           headers: { "Content-Type": "application/json" },
           withCredentials: true,
@@ -66,13 +66,13 @@ export default function useSignInForm() {
   };
 
   function cleanUpInputFields() {
-    setUsername("");
+    setEmail("");
     setPassword("");
   }
 
   return {
-    usernameRef,
-    setUsername,
+    emailRef,
+    setEmail,
     setPassword,
     errorRef,
     errorMessage,

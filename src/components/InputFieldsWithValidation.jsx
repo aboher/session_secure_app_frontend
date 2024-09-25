@@ -94,40 +94,6 @@ export function EmailField({ email, emailIsValid, setEmail }) {
   );
 }
 
-export function UsernameField({ username, usernameIsValid, setUsername }) {
-  return (
-    <div className="mb-3">
-      <label htmlFor="username" className="form-label">
-        Username:
-      </label>
-      <input
-        type="text"
-        id="username"
-        className={`form-control ${
-          username && (usernameIsValid ? "is-valid" : "is-invalid")
-        }`}
-        autoComplete="off"
-        onChange={(e) => setUsername(e.target.value)}
-        required
-        aria-invalid={usernameIsValid ? "false" : "true"}
-        aria-describedby="uidnote"
-      />
-      <div className="valid-feedback">Looks good!</div>
-      <div className="invalid-feedback">
-        <p id="uidnote">
-          <i className="bi bi-info-circle-fill"></i>
-          <span> </span>
-          4 to 24 characters.
-          <br />
-          Must begin with a letter.
-          <br />
-          Letters, numbers, underscores, hyphens allowed.
-        </p>
-      </div>
-    </div>
-  );
-}
-
 export function PasswordField({ password, passwordIsValid, setPassword }) {
   const [showPwd, setShowPwd] = useState(false);
 

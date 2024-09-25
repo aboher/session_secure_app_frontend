@@ -9,7 +9,7 @@ const LOGOUT_URL = "/logout";
 export const AuthProvider = ({ children }) => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [session, setSession] = useState({
-    username: "",
+    email: "",
     roles: [],
     expirationDate: new Date(),
   });
@@ -20,7 +20,7 @@ export const AuthProvider = ({ children }) => {
         withCredentials: true,
       });
       return {
-        username: result?.data?.username,
+        email: result?.data?.email,
         roles: result.data.roles,
         expirationDate: new Date(result.data.expirationDate),
       };

@@ -6,7 +6,6 @@ import SuccessMessage from "./SuccessMessage";
 import {
   FirstAndLastNameFields,
   EmailField,
-  UsernameField,
   PasswordField,
   MatchPasswordField,
 } from "../../components/InputFieldsWithValidation";
@@ -24,9 +23,6 @@ export default function SignUp() {
     email,
     setEmail,
     emailIsValid,
-    username,
-    setUsername,
-    usernameIsValid,
     password,
     setPassword,
     passwordIsValid,
@@ -70,12 +66,6 @@ export default function SignUp() {
                     email={email}
                     setEmail={setEmail}
                     emailIsValid={emailIsValid}
-                  />
-
-                  <UsernameField
-                    username={username}
-                    setUsername={setUsername}
-                    usernameIsValid={usernameIsValid}
                   />
 
                   <PasswordField

@@ -1,18 +1,18 @@
 import { useState } from "react";
 
-export function UsernameField({ setUsername, usernameRef }) {
+export function EmailField({ setEmail, emailRef }) {
   return (
     <div className="mb-3">
-      <label htmlFor="username" className="form-label">
-        Username:
+      <label htmlFor="email" className="form-label">
+        Email:
       </label>
       <input
         type="text"
-        id="username"
+        id="email"
         className="form-control"
-        ref={usernameRef}
+        ref={emailRef}
         autoComplete="off"
-        onChange={(e) => setUsername(e.target.value)}
+        onChange={(e) => setEmail(e.target.value)}
         required
       />
     </div>

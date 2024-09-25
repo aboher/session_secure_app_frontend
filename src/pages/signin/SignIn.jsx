@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { PasswordField, UsernameField } from "../../components/InputFields";
+import { PasswordField, EmailField } from "../../components/InputFields";
 import { Link } from "react-router-dom";
 import useSignInForm from "./useSignInForm";
 import ErrorMessage from "../../components/ErrorMessage";
@@ -10,8 +10,8 @@ export default function SignIn() {
   }, []);
 
   const {
-    usernameRef,
-    setUsername,
+    emailRef,
+    setEmail,
     setPassword,
     errorRef,
     errorMessage,
@@ -27,10 +27,7 @@ export default function SignIn() {
             <h1 className="mb-3">Sign In</h1>
 
             <form onSubmit={handleSubmit}>
-              <UsernameField
-                setUsername={setUsername}
-                usernameRef={usernameRef}
-              />
+              <EmailField setEmail={setEmail} emailRef={emailRef} />
 
               <PasswordField setPassword={setPassword} />
 
