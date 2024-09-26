@@ -1,7 +1,7 @@
 import { useRef, useState, useEffect } from "react";
 import useInput from "../../hooks/useCheckedInput";
 import useMatchInput from "../../hooks/useCheckedMatchInput";
-import axios from "../../api/axios";
+import axios from "../../api/axiosInstance";
 import { HttpStatusCode } from "axios";
 
 const SIGNUP_URL = "/users";

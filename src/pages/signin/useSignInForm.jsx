@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import axios from "../../api/axios";
+import axios from "../../api/axiosInstance";
 import { HttpStatusCode } from "axios";
 import useAuth from "../../hooks/useAuth";
 
