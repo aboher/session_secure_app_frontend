@@ -9,6 +9,7 @@ import SignIn from "./pages/signin/SignIn";
 import NotFound from "./pages/NotFound";
 import InventoryRoutes from "./pages/inventory/InventoryRoutes";
 import RequireUnauth from "./components/RequireUnauth";
+import ConfirmEmail from "./pages/ConfirmEmail";
 
 function App() {
   return (
@@ -30,6 +31,14 @@ function App() {
           element={
             <RequireUnauth>
               <SignUp />
+            </RequireUnauth>
+          }
+        />
+        <Route
+          path="/confirm-account"
+          element={
+            <RequireUnauth>
+              <ConfirmEmail />
             </RequireUnauth>
           }
         />

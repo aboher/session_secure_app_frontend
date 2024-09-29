@@ -1,7 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import axios from "../../api/axiosInstance";
-import { HttpStatusCode } from "axios";
 import useAuth from "../../hooks/useAuth";
 
 const SIGNIN_URL = "/login";
@@ -57,8 +56,6 @@ export default function useSignInForm() {
     } catch (error) {
       if (!error?.response) {
         setErrorMessage("No Server Response");
-      } else if (error.response?.status === HttpStatusCode.Unauthorized) {
-        setErrorMessage(error.response?.data?.errorMessage);
       } else {
         setErrorMessage("Sign in failed");
       }

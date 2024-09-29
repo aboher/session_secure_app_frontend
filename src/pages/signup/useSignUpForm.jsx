@@ -71,10 +71,8 @@ export default function useSignUpForm() {
     } catch (error) {
       if (!error?.response) {
         setErrorMessage("No Server Response");
-      } else if (error.response?.status === HttpStatusCode.Conflict) {
-        setErrorMessage(error.response.data.errorMessage);
       } else if (error.response?.status === HttpStatusCode.BadRequest) {
-        setErrorMessage(error.response.data.message);
+        setErrorMessage(error.response?.data?.errorMessage);
       } else {
         setErrorMessage("Registration Failed");
       }
