@@ -9,6 +9,7 @@ import {
   PasswordField,
   MatchPasswordField,
 } from "../../components/InputFieldsWithValidation";
+import { RoleCheckbox } from "../../components/InputFields";
 
 export default function SignUp() {
   const {
@@ -29,6 +30,8 @@ export default function SignUp() {
     matchPassword,
     setMatchPassword,
     matchPasswordIsValid,
+    setRoleModerator,
+    setRoleAdmin,
     errorMessage,
     success,
     isSubmitting,
@@ -78,6 +81,11 @@ export default function SignUp() {
                     matchPassword={matchPassword}
                     setMatchPassword={setMatchPassword}
                     matchPasswordIsValid={matchPasswordIsValid}
+                  />
+
+                  <RoleCheckbox
+                    setRoleModerator={setRoleModerator}
+                    setRoleAdmin={setRoleAdmin}
                   />
 
                   {errorMessage && (

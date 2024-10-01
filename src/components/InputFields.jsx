@@ -53,3 +53,60 @@ export function PasswordField({ setPassword }) {
     </div>
   );
 }
+
+export function RoleCheckbox({ setRoleModerator, setRoleAdmin }) {
+  return (
+    <>
+      <p>Choose a role:</p>
+      <div className="mb-3">
+        <DisabledCheckBox label={"User"} />
+        <Checkbox
+          onChange={() => {
+            setRoleModerator((prev) => !prev);
+          }}
+          label={"Moderator"}
+        />
+        <Checkbox
+          onChange={() => {
+            setRoleAdmin((prev) => !prev);
+          }}
+          label={"Admin"}
+        />
+      </div>
+    </>
+  );
+}
+
+export function DisabledCheckBox({ label }) {
+  return (
+    <div className="form-check form-check-inline">
+      <input
+        className="form-check-input"
+        type="checkbox"
+        id="inlineCheckbox3"
+        value="option1"
+        checked
+        disabled
+      />
+      <label className="form-check-label" htmlFor="inlineCheckbox3">
+        {label}
+      </label>
+    </div>
+  );
+}
+
+export function Checkbox({ onChange, label }) {
+  return (
+    <div className="form-check form-check-inline">
+      <input
+        className="form-check-input"
+        type="checkbox"
+        id="inlineCheckbox1"
+        onChange={onChange}
+      />
+      <label className="form-check-label" htmlFor="inlineCheckbox1">
+        {label}
+      </label>
+    </div>
+  );
+}

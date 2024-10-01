@@ -3,6 +3,7 @@ import useInput from "../../hooks/useCheckedInput";
 import useMatchInput from "../../hooks/useCheckedMatchInput";
 import axios from "../../api/axiosInstance";
 import { HttpStatusCode } from "axios";
+import { Role } from "../../constants/enums";
 
 const SIGNUP_URL = "/users";
 const NAMES_REGEX = /^\D{1,24}$/;
@@ -24,6 +25,8 @@ export default function useSignUpForm() {
     setMatchPassword,
     matchPasswordIsValid,
   ] = useMatchInput(PASSWORD_REGEX);
+  const [roleModerator, setRoleModerator] = useState(false);
+  const [roleAdmin, setRoleAdmin] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
   const [success, setSuccess] = useState(false);
@@ -45,6 +48,7 @@ export default function useSignUpForm() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setErrorMessage("");
     // if button enabled with JS hack
     if (!areInputFieldStatesValid()) {
       setErrorMessage("Invalid Entry");
@@ -57,10 +61,17 @@ export default function useSignUpForm() {
   };
 
   const signUp = async () => {
+    const roles = [Role.User];
+    if (roleModerator) {
+      roles.push(Role.Moderator);
+    }
+    if (roleAdmin) {
+      roles.push(Role.Admin);
+    }
     try {
       await axios.post(
         SIGNUP_URL,
-        { firstName, lastName, email, password },
+        { firstName, lastName, email, password, roles },
         {
           headers: { "Content-Type": "application/json" },
           withCredentials: true,
@@ -115,6 +126,8 @@ export default function useSignUpForm() {
     matchPassword,
     setMatchPassword,
     matchPasswordIsValid,
+    setRoleModerator,
+    setRoleAdmin,
     errorMessage,
     success,
     isSubmitting,
