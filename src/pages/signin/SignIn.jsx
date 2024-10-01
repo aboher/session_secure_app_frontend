@@ -49,6 +49,12 @@ export default function SignIn() {
                 </Link>
               </span>
             </p>
+            <p>
+              <Link to="/request-password-change" className="icon-link icon-link-hover">
+                I forgot my password
+                <i className="bi bi-arrow-right"></i>
+              </Link>
+            </p>
           </section>
         </div>
       </div>

@@ -10,6 +10,8 @@ import NotFound from "./pages/NotFound";
 import InventoryRoutes from "./pages/inventory/InventoryRoutes";
 import RequireUnauth from "./components/RequireUnauth";
 import ConfirmEmail from "./pages/ConfirmEmail";
+import RequestPasswordChange from "./pages/RequestPasswordChange";
+import ChangePassword from "./pages/ChangePassword";
 
 function App() {
   return (
@@ -41,6 +43,14 @@ function App() {
               <ConfirmEmail />
             </RequireUnauth>
           }
+        />
+        <Route
+          path="/request-password-change"
+          element={<RequestPasswordChange />}
+        />
+        <Route
+          path="/password-change"
+          element={<ChangePassword />}
         />
         <Route path="*" element={<NotFound />} />
       </Routes>
