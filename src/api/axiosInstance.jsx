@@ -1,13 +1,14 @@
 import axios from "axios";
 import Cookies from "js-cookie";
+import { BACKEND_URL } from "../constants/urlConstants";
 import {
-  BACKEND_URL,
   CSRF_TOKEN_COOKIE_NAME,
   CSRF_TOKEN_HEADER_NAME,
-} from "../constants/constants";
+} from "../constants/otherConstants";
 
 const axiosInstance = axios.create({
   baseURL: BACKEND_URL,
+  withCredentials: true,
 });
 
 axiosInstance.interceptors.request.use(

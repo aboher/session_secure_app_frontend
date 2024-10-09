@@ -1,10 +1,9 @@
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { EmailField } from "../components/InputFields";
 import axios from "../api/axiosInstance";
 import ErrorMessage from "../components/ErrorMessage";
 import { Link } from "react-router-dom";
-
-const REQUEST_PASSWORD_CHANGE_PATH = "/users/request-password-change";
+import { REQUEST_PASSWORD_CHANGE_PATH } from "../constants/urlConstants";
 
 export default function RequestPasswordChange() {
   const [email, setEmail] = useState("");
@@ -14,19 +13,21 @@ export default function RequestPasswordChange() {
   const [errorMessage, setErrorMessage] = useState("");
   const [success, setSuccess] = useState(false);
 
+  useEffect(() => {
+    emailRef.current.focus();
+  }, []);
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (isSubmitting) return;
     setIsSubmitting(true);
-    await signIn();
+    await requestPasswordChange();
     setIsSubmitting(false);
   };
 
-  const signIn = async () => {
+  const requestPasswordChange = async () => {
     try {
-      await axios.post(REQUEST_PASSWORD_CHANGE_PATH + "?email=" + email, null, {
-        withCredentials: true,
-      });
+      await axios.post(REQUEST_PASSWORD_CHANGE_PATH + "?email=" + email, null);
       setSuccess(true);
     } catch (error) {
       if (!error?.response) {

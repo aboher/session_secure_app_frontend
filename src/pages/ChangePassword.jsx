@@ -8,10 +8,8 @@ import ErrorMessage from "../components/ErrorMessage";
 import { Link, useSearchParams } from "react-router-dom";
 import axios from "../api/axiosInstance";
 import { HttpStatusCode } from "axios";
-
-const PASSWORD_REGEX =
-  /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/;
-const PASSWORD_CHANGE_PATH = "/users/password-change";
+import { PASSWORD_CHANGE_PATH } from "../constants/urlConstants";
+import { PASSWORD_REGEX } from "../constants/otherConstants";
 
 export default function ChangePassword() {
   const [
@@ -37,19 +35,15 @@ export default function ChangePassword() {
     }
     if (isSubmitting) return;
     setIsSubmitting(true);
-    await signUp();
+    await changePassword();
     setIsSubmitting(false);
   };
 
-  const signUp = async () => {
+  const changePassword = async () => {
     try {
       await axios.post(
-        PASSWORD_CHANGE_PATH + "?token=" + searchParams.get("token"),
-        { password },
-        {
-          headers: { "Content-Type": "application/json" },
-          withCredentials: true,
-        }
+        PASSWORD_CHANGE_PATH + searchParams.get("token"),
+        { password }
       );
       clearAllInputFieldsStates();
     } catch (error) {

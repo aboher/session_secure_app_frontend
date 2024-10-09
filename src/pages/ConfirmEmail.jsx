@@ -4,8 +4,7 @@ import axios from "../api/axiosInstance";
 import { HttpStatusCode } from "axios";
 import Loading from "./Loading";
 import ErrorMessage from "../components/ErrorMessage";
-
-const CONFIRM_ACCOUNT_PATH = "/users/confirm-account";
+import { CONFIRM_ACCOUNT_PATH } from "../constants/urlConstants";
 
 export default function ConfirmEmail() {
   const [searchParams] = useSearchParams();
@@ -18,8 +17,7 @@ export default function ConfirmEmail() {
       try {
         await axios.post(
           CONFIRM_ACCOUNT_PATH + "?token=" + searchParams.get("token"),
-          null,
-          { withCredentials: true }
+          null
         );
       } catch (error) {
         if (!error?.response) {

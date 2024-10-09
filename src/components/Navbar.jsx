@@ -10,11 +10,11 @@ export default function Navbar() {
       <div className="container-fluid">
         <a className="navbar-brand hover-rotate" href="/">
           <img
-            src="../../open-cardboard-box.svg"
-            alt="Cardboard box"
+            src="../../shield-lock-fill.svg"
+            alt="shield-lock-fill"
             width="45px"
           />
-          <span style={{ margin: "10px" }}>Inventory Management System</span>
+          <span style={{ margin: "10px" }}>Session Secure App</span>
         </a>
         <button
           className="navbar-toggler"

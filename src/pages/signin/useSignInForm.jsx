@@ -2,8 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import axios from "../../api/axiosInstance";
 import useAuth from "../../hooks/useAuth";
-
-const SIGNIN_URL = "/login";
+import { SIGNIN_PATH } from "../../constants/urlConstants";
 
 export default function useSignInForm() {
   const { setIsAuthenticated } = useAuth();
@@ -42,14 +41,7 @@ export default function useSignInForm() {
 
   const signIn = async () => {
     try {
-      await axios.post(
-        SIGNIN_URL,
-        { email, password },
-        {
-          headers: { "Content-Type": "application/json" },
-          withCredentials: true,
-        }
-      );
+      await axios.post(SIGNIN_PATH, { email, password });
       cleanUpInputFields();
       setIsAuthenticated(true);
       navigate(from, { replace: true });
