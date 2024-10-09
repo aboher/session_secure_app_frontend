@@ -4,12 +4,12 @@ import useMatchInput from "../../hooks/useCheckedMatchInput";
 import axios from "../../api/axiosInstance";
 import { HttpStatusCode } from "axios";
 import { Role } from "../../constants/enums";
-
-const SIGNUP_URL = "/users";
-const NAMES_REGEX = /^\D{1,24}$/;
-const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-const PASSWORD_REGEX =
-  /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/;
+import { SIGNUP_PATH } from "../../constants/urlConstants";
+import {
+  NAMES_REGEX,
+  EMAIL_REGEX,
+  PASSWORD_REGEX,
+} from "../../constants/otherConstants";
 
 export default function useSignUpForm() {
   const firstNameRef = useRef();
@@ -69,14 +69,13 @@ export default function useSignUpForm() {
       roles.push(Role.Admin);
     }
     try {
-      await axios.post(
-        SIGNUP_URL,
-        { firstName, lastName, email, password, roles },
-        {
-          headers: { "Content-Type": "application/json" },
-          withCredentials: true,
-        }
-      );
+      await axios.post(SIGNUP_PATH, {
+        firstName,
+        lastName,
+        email,
+        password,
+        roles,
+      });
       setSuccess(true);
       clearAllInputFieldsStates();
     } catch (error) {

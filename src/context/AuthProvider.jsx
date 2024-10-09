@@ -1,10 +1,8 @@
 import { createContext, useCallback, useEffect, useState } from "react";
 import axios from "../api/axiosInstance";
+import { SESSION_INFO_PATH, SIGNOUT_PATH } from "../constants/urlConstants";
 
 const AuthContext = createContext({});
-
-const SESSION_INFO_URL = "/auth-info";
-const LOGOUT_URL = "/logout";
 
 export const AuthProvider = ({ children }) => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -17,9 +15,7 @@ export const AuthProvider = ({ children }) => {
 
   const getSessionInfo = useCallback(async () => {
     try {
-      const result = await axios.get(SESSION_INFO_URL, {
-        withCredentials: true,
-      });
+      const result = await axios.get(SESSION_INFO_PATH);
       return {
         email: result?.data?.email,
         roles: result.data.roles,
@@ -43,9 +39,7 @@ export const AuthProvider = ({ children }) => {
 
   const logout = async () => {
     try {
-      await axios.post(LOGOUT_URL, null, {
-        withCredentials: true,
-      });
+      await axios.post(SIGNOUT_PATH, null);
       window.location.reload();
     } catch (error) {
       console.error(error);
