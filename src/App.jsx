@@ -13,6 +13,8 @@ import ConfirmEmail from "./pages/ConfirmEmail";
 import RequestPasswordChange from "./pages/RequestPasswordChange";
 import ChangePassword from "./pages/ChangePassword";
 import UserRoutes from "./pages/user/UserRoutes";
+import AdminRoutes from "./pages/admin/AdminRoutes";
+import RequireAdminAuth from "./components/RequireAdminAuth";
 
 function App() {
   return (
@@ -26,6 +28,14 @@ function App() {
             <RequireAuth>
               <UserRoutes />
             </RequireAuth>
+          }
+        />
+        <Route
+          path="admin/*"
+          element={
+            <RequireAdminAuth>
+              <AdminRoutes />
+            </RequireAdminAuth>
           }
         />
         <Route

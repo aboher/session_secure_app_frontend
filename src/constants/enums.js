@@ -1,5 +1,5 @@
 export const Role = {
-  User: "ROLE_USER",
-  Moderator: "ROLE_MODERATOR",
-  Admin: "ROLE_ADMIN",
+  User: {value: "ROLE_USER", name: "User"},
+  Moderator: {value: "ROLE_MODERATOR", name: "Moderator"},
+  Admin: {value: "ROLE_ADMIN", name: "Admin"},
 };

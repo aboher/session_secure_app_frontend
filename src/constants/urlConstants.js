@@ -9,3 +9,5 @@ export const SIGNOUT_PATH = "/logout";
 export const REQUEST_PASSWORD_CHANGE_PATH = "/users/request-password-change";
 export const PASSWORD_CHANGE_PATH = "/users/password-change?token=";
 export const CONFIRM_ACCOUNT_PATH = "/users/confirm-account";
+export const USERS_WITH_ACTIVE_SESSION_PATH =
+  "/session/emails-of-all-active-sessions";

@@ -61,12 +61,12 @@ export default function useSignUpForm() {
   };
 
   const signUp = async () => {
-    const roles = [Role.User];
+    const roles = [Role.User.value];
     if (roleModerator) {
-      roles.push(Role.Moderator);
+      roles.push(Role.Moderator.value);
     }
     if (roleAdmin) {
-      roles.push(Role.Admin);
+      roles.push(Role.Admin.value);
     }
     try {
       await axios.post(SIGNUP_PATH, {

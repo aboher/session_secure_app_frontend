@@ -1,6 +1,9 @@
 import { Link } from "react-router-dom";
+import useAuth from "../../hooks/useAuth";
 
 export default function UserSection() {
+  const { session } = useAuth();
+
   return (
     <>
       <h2 className="mb-3">User Role Required</h2>
@@ -10,7 +13,12 @@ export default function UserSection() {
       >
         View Current Session Information
       </Link>
-      <Link to={"/user/active-sessions/"} className="btn btn-primary">
+      <Link
+        to={`/user/active-sessions/${
+          session?.email ? session.email : "current-user"
+        }`}
+        className="btn btn-primary"
+      >
         View All Active Sessions
       </Link>
     </>

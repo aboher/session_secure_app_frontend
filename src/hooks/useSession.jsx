@@ -4,6 +4,7 @@ import {
   SESSION_INFO_BY_ID_PATH,
   ALL_ACTIVE_SESSIONS_IDS_PATH,
   DELETE_SESSION_BY_ID_PATH,
+  USERS_WITH_ACTIVE_SESSION_PATH,
 } from "../constants/urlConstants";
 
 export const useSession = () => {
@@ -24,9 +25,12 @@ export const useSession = () => {
     }
   }, []);
 
-  const getSessionsIds = useCallback(async () => {
+  const getSessionsIds = useCallback(async (email) => {
     try {
-      let response = await axios.get(ALL_ACTIVE_SESSIONS_IDS_PATH);
+      const url = email
+        ? ALL_ACTIVE_SESSIONS_IDS_PATH + "/" + email
+        : ALL_ACTIVE_SESSIONS_IDS_PATH;
+      const response = await axios.get(url);
       return response?.data;
     } catch (error) {
       console.log(error);
@@ -43,5 +47,20 @@ export const useSession = () => {
     }
   };
 
-  return { getSessionById, getSessionsIds, deleteSessionById };
+  const getUsersWithActiveSessions = useCallback(async () => {
+    try {
+      const response = await axios.get(USERS_WITH_ACTIVE_SESSION_PATH);
+      return response?.data;
+    } catch (error) {
+      console.log(error);
+      return null;
+    }
+  }, []);
+
+  return {
+    getSessionById,
+    getSessionsIds,
+    deleteSessionById,
+    getUsersWithActiveSessions,
+  };
 };
