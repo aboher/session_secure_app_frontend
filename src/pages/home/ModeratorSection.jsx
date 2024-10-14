@@ -1,5 +1,12 @@
+import { Link } from "react-router-dom";
+
 export default function ModeratorSection() {
   return (
-    <div>ModeratorSection</div>
-  )
+    <>
+      <h2 className="mb-3">Admin Role Required</h2>
+      <Link to={"/moderator/attributes/"} className="btn btn-primary">
+        View Session Attributes
+      </Link>
+    </>
+  );
 }

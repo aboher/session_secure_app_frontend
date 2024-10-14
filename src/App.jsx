@@ -15,6 +15,8 @@ import ChangePassword from "./pages/ChangePassword";
 import UserRoutes from "./pages/user/UserRoutes";
 import AdminRoutes from "./pages/admin/AdminRoutes";
 import RequireAdminAuth from "./components/RequireAdminAuth";
+import ModeratorRoutes from "./pages/moderator/ModeratorRoutes";
+import RequireModeratorAuth from "./components/RequireModeratorAuth";
 
 function App() {
   return (
@@ -28,6 +30,14 @@ function App() {
             <RequireAuth>
               <UserRoutes />
             </RequireAuth>
+          }
+        />
+        <Route
+          path="moderator/*"
+          element={
+            <RequireModeratorAuth>
+              <ModeratorRoutes />
+            </RequireModeratorAuth>
           }
         />
         <Route
