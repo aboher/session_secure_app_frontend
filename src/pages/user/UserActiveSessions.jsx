@@ -1,16 +1,18 @@
 import { useEffect, useRef, useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link, Navigate, useNavigate, useParams } from "react-router-dom";
 import { useSession } from "../../hooks/useSession";
 import useAuth from "../../hooks/useAuth";
 import Loading from "../Loading";
+import { Role } from "../../constants/enums";
 
 export default function UserActiveSessions() {
   const { pathVariableEmail } = useParams();
   const email = useRef("");
   const { session, loading } = useAuth();
-  const [sessionsIds, setSessionsIds] = useState([]);
+  const [sessionsIds, setSessionsIds] = useState(null);
   const [currentSessionId, setCurrentSessionId] = useState("");
   const { getSessionById, getSessionsIds, deleteSessionById } = useSession();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const getSessions = async () => {
@@ -24,12 +26,22 @@ export default function UserActiveSessions() {
         console.log(error);
       }
     };
+    const redirectHomeIfUserIsTryingToSeeSomeoneElsesSessionsAndHeDoesNotHaveAdminRole =
+      () => {
+        if (
+          email.current !== session.email &&
+          !session.roles.includes(Role.Admin.value)
+        ) {
+          navigate("/");
+        }
+      };
 
     if (!loading) {
       email.current =
         pathVariableEmail === "current-user"
           ? session.email
           : pathVariableEmail;
+      redirectHomeIfUserIsTryingToSeeSomeoneElsesSessionsAndHeDoesNotHaveAdminRole();
       getSessions();
     }
   }, [
@@ -38,6 +50,8 @@ export default function UserActiveSessions() {
     loading,
     session.email,
     pathVariableEmail,
+    session.roles,
+    navigate,
   ]);
 
   useEffect(() => {
@@ -59,7 +73,7 @@ export default function UserActiveSessions() {
   };
 
   if (loading) {
-    <Loading />;
+    return <Loading />;
   }
 
   return (
@@ -76,28 +90,32 @@ export default function UserActiveSessions() {
                 </tr>
               </thead>
               <tbody>
-                {sessionsIds.map((sessionId) => (
-                  <tr key={sessionId}>
-                    <td>{sessionId}</td>
-                    <td>
-                      <Link
-                        to={`/user/session-info/${sessionId}`}
-                        className="btn btn-primary mx-3"
-                      >
-                        view details
-                      </Link>
-                      <button
-                        onClick={() => deleteSession(sessionId)}
-                        className="btn btn-danger"
-                      >
-                        delete session
-                      </button>
-                    </td>
-                    {sessionId === currentSessionId && (
-                      <td>← this is the current session</td>
-                    )}
-                  </tr>
-                ))}
+                {sessionsIds.length !== 0 ? (
+                  sessionsIds.map((sessionId) => (
+                    <tr key={sessionId}>
+                      <td>{sessionId}</td>
+                      <td>
+                        <Link
+                          to={`/user/session-info/${sessionId}`}
+                          className="btn btn-primary mx-3"
+                        >
+                          view details
+                        </Link>
+                        <button
+                          onClick={() => deleteSession(sessionId)}
+                          className="btn btn-danger"
+                        >
+                          delete session
+                        </button>
+                      </td>
+                      {sessionId === currentSessionId && (
+                        <td>← this is the current session</td>
+                      )}
+                    </tr>
+                  ))
+                ) : (
+                  <Navigate to={"/"} />
+                )}
               </tbody>
             </table>
           )}
