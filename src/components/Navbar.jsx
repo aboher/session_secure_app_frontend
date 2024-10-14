@@ -3,7 +3,7 @@ import "./navbar.css";
 import useAuth from "../hooks/useAuth";
 
 export default function Navbar() {
-  const { isAuthenticated, logout, loading } = useAuth();
+  const { isAuthenticated, signOut, loading } = useAuth();
 
   return (
     <nav className="navbar navbar-expand-lg bg-body-tertiary sticky-top">
@@ -31,7 +31,7 @@ export default function Navbar() {
           <ul className="navbar-nav me-auto mb-2 mb-lg-0"></ul>
           {!loading &&
             (isAuthenticated ? (
-              <button className="btn btn-outline-success m-1" onClick={logout}>
+              <button className="btn btn-outline-success m-1" onClick={signOut}>
                 Sign Out
               </button>
             ) : (

@@ -1,11 +1,12 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { useSession } from "../../hooks/useSession";
 import useAuth from "../../hooks/useAuth";
+import Loading from "../Loading";
 
 export default function UserActiveSessions() {
-  const { pathVariable } = useParams();
-  const [email, setEmail] = useState("");
+  const { pathVariableEmail } = useParams();
+  const email = useRef("");
   const { session, loading } = useAuth();
   const [sessionsIds, setSessionsIds] = useState([]);
   const [currentSessionId, setCurrentSessionId] = useState("");
@@ -14,7 +15,9 @@ export default function UserActiveSessions() {
   useEffect(() => {
     const getSessions = async () => {
       try {
-        setSessionsIds(await getSessionsIds(email !== session.email && email));
+        setSessionsIds(
+          await getSessionsIds(email.current !== session.email && email.current)
+        );
         const currentSession = await getSessionById("current-session");
         setCurrentSessionId(currentSession.id);
       } catch (error) {
@@ -23,16 +26,18 @@ export default function UserActiveSessions() {
     };
 
     if (!loading) {
-      setEmail(pathVariable == "current-user" ? session.email : pathVariable);
+      email.current =
+        pathVariableEmail === "current-user"
+          ? session.email
+          : pathVariableEmail;
       getSessions();
     }
   }, [
     getSessionsIds,
     getSessionById,
     loading,
-    email,
     session.email,
-    pathVariable,
+    pathVariableEmail,
   ]);
 
   useEffect(() => {
@@ -53,11 +58,15 @@ export default function UserActiveSessions() {
     }
   };
 
+  if (loading) {
+    <Loading />;
+  }
+
   return (
     <div className="container">
       <div className="row">
         <div className="col col-lg-10 offset-lg-1 mt-5 mb-5 border border-secondary-subtle rounded-3 text-bg-light p-3">
-          <h1>All active sessions of user: {email}</h1>
+          <h1>All active sessions of user: {email.current}</h1>
           {sessionsIds && (
             <table className="table table-hover text-center">
               <thead>

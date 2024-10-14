@@ -1,11 +1,9 @@
 import { useEffect, useRef, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import axios from "../../api/axiosInstance";
 import useAuth from "../../hooks/useAuth";
-import { SIGNIN_PATH } from "../../constants/urlConstants";
 
 export default function useSignInForm() {
-  const { setIsAuthenticated } = useAuth();
+  const { signIn } = useAuth();
   const [email, setEmail] = useState("");
   const emailRef = useRef();
   const [password, setPassword] = useState("");
@@ -35,15 +33,14 @@ export default function useSignInForm() {
     e.preventDefault();
     if (isSubmitting) return;
     setIsSubmitting(true);
-    await signIn();
+    await signUserIn();
     setIsSubmitting(false);
   };
 
-  const signIn = async () => {
+  const signUserIn = async () => {
     try {
-      await axios.post(SIGNIN_PATH, { email, password });
+      await signIn({ email, password });
       cleanUpInputFields();
-      setIsAuthenticated(true);
       navigate(from, { replace: true });
     } catch (error) {
       if (!error?.response) {

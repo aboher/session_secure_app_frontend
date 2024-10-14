@@ -1,17 +1,17 @@
-import { createContext, useCallback, useEffect, useState } from "react";
+import { createContext, useCallback, useEffect, useRef, useState } from "react";
 import axios from "../api/axiosInstance";
-import { SESSION_INFO_PATH, SIGNOUT_PATH } from "../constants/urlConstants";
+import {
+  SESSION_INFO_PATH,
+  SIGNOUT_PATH,
+  SIGNIN_PATH,
+} from "../constants/urlConstants";
 
 const AuthContext = createContext({});
 
 export const AuthProvider = ({ children }) => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const [session, setSession] = useState({
-    email: "",
-    roles: [],
-    expirationDate: new Date(),
-  });
-  const [loading, setLoading] = useState(true);
+  const [session, setSession] = useState({});
+  const loading = useRef(true);
 
   const getSessionInfo = useCallback(async () => {
     try {
@@ -26,18 +26,24 @@ export const AuthProvider = ({ children }) => {
     }
   }, []);
 
+  const checkAuthentication = useCallback(async () => {
+    const currentSession = await getSessionInfo();
+    setSession(currentSession);
+    setIsAuthenticated(currentSession ? true : false);
+    loading.current = false;
+  }, [getSessionInfo]);
+
   useEffect(() => {
-    const checkAuthentication = async () => {
-      const currentSession = await getSessionInfo();
-      setSession(currentSession);
-      setIsAuthenticated(currentSession ? true : false);
-      setLoading(false);
-    };
-
     checkAuthentication();
-  }, [getSessionInfo, isAuthenticated]);
+  }, [checkAuthentication]);
 
-  const logout = async () => {
+  const signIn = async ({ email, password }) => {
+    await axios.post(SIGNIN_PATH, { email, password });
+    loading.current = true;
+    checkAuthentication();
+  };
+
+  const signOut = async () => {
     try {
       await axios.post(SIGNOUT_PATH, null);
       window.location.reload();
@@ -50,11 +56,10 @@ export const AuthProvider = ({ children }) => {
     <AuthContext.Provider
       value={{
         isAuthenticated,
-        setIsAuthenticated,
         session,
-        setSession,
-        logout,
-        loading,
+        signOut,
+        signIn,
+        loading: loading.current,
       }}
     >
       {children}
