@@ -18,8 +18,8 @@ export const AuthProvider = ({ children }) => {
       const result = await axios.get(SESSION_INFO_PATH);
       return {
         email: result?.data?.email,
-        roles: result.data.roles,
-        expirationDate: new Date(result.data.expirationDate),
+        roles: result?.data?.roles,
+        expirationDate: new Date(result?.data?.expirationDate),
       };
     } catch (error) {
       return null;
@@ -38,8 +38,8 @@ export const AuthProvider = ({ children }) => {
   }, [checkAuthentication]);
 
   const signIn = async ({ email, password }) => {
-    await axios.post(SIGNIN_PATH, { email, password });
     loading.current = true;
+    await axios.post(SIGNIN_PATH, { email, password });
     checkAuthentication();
   };
 

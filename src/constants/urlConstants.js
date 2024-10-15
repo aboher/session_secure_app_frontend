@@ -11,3 +11,5 @@ export const PASSWORD_CHANGE_PATH = "/users/password-change?token=";
 export const CONFIRM_ACCOUNT_PATH = "/users/confirm-account";
 export const USERS_WITH_ACTIVE_SESSION_PATH =
   "/session/emails-of-all-active-sessions";
+export const ALL_ATTRIBUTES_PATH = "/session/attributes";
+export const HANDLE_ATTRIBUTE_BY_NAME_PATH = "/session/attribute?name=";

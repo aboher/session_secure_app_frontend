@@ -5,7 +5,10 @@ import {
   ALL_ACTIVE_SESSIONS_IDS_PATH,
   DELETE_SESSION_BY_ID_PATH,
   USERS_WITH_ACTIVE_SESSION_PATH,
+  ALL_ATTRIBUTES_PATH,
+  HANDLE_ATTRIBUTE_BY_NAME_PATH,
 } from "../constants/urlConstants";
+import { HttpStatusCode } from "axios";
 
 export const useSession = () => {
   const getSessionById = useCallback(async (id) => {
@@ -57,10 +60,52 @@ export const useSession = () => {
     }
   }, []);
 
+  const getAllAttributes = useCallback(async () => {
+    try {
+      const response = await axios.get(ALL_ATTRIBUTES_PATH);
+      return response?.data;
+    } catch (error) {
+      console.log(error);
+    }
+  }, []);
+
+  const createUpdateAttribute = async (attributeName, attribute) => {
+    try {
+      await axios.put(HANDLE_ATTRIBUTE_BY_NAME_PATH + attributeName, attribute);
+      return null;
+    } catch (error) {
+      if (!error?.response) {
+        return "No Server Response";
+      } else if (error.response?.status === HttpStatusCode.BadRequest) {
+        return error.response?.data?.errorMessage;
+      } else {
+        return "Unknown error";
+      }
+    }
+  };
+
+  const deleteAttribute = async (attributeName) => {
+    try {
+      await axios.delete(HANDLE_ATTRIBUTE_BY_NAME_PATH + attributeName);
+      return null;
+    } catch (error) {
+      if (!error?.response) {
+        return "No Server Response";
+      } else if (error.response?.status === HttpStatusCode.BadRequest) {
+        return error.response?.data?.errorMessage;
+      } else {
+        return "Unknown error";
+      }
+    }
+  };
+
   return {
     getSessionById,
     getSessionsIds,
     deleteSessionById,
     getUsersWithActiveSessions,
+    getAllAttributes,
+    createUpdateAttribute,
+    deleteAttribute,
   };
 };
