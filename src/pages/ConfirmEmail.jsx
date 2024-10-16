@@ -15,9 +15,8 @@ export default function ConfirmEmail() {
   useEffect(() => {
     const confirmEmail = async () => {
       try {
-        await axios.post(
-          CONFIRM_ACCOUNT_PATH + "?token=" + searchParams.get("token"),
-          null
+        await axios.get(
+          CONFIRM_ACCOUNT_PATH + "?token=" + searchParams.get("token")
         );
       } catch (error) {
         if (!error?.response) {

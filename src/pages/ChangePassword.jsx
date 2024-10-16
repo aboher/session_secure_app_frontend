@@ -41,10 +41,9 @@ export default function ChangePassword() {
 
   const changePassword = async () => {
     try {
-      await axios.post(
-        PASSWORD_CHANGE_PATH + searchParams.get("token"),
-        { password }
-      );
+      await axios.patch(PASSWORD_CHANGE_PATH + searchParams.get("token"), {
+        password,
+      });
       clearAllInputFieldsStates();
     } catch (error) {
       if (!error?.response) {
