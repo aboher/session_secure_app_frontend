@@ -1,4 +1,4 @@
-import "./Loading.css";
+import Spinner from "../components/Spinner";
 
 const Loading = () => {
   return (
@@ -6,10 +6,8 @@ const Loading = () => {
       <div className="row">
         <div className="col col-lg-6 offset-lg-3 mt-5 mb-5 border border-secondary-subtle rounded-3 text-bg-light p-3">
           <h1 style={{ textAlign: "center" }} className="m-5">
-            Loading{" "}
-            <div className="loading-spinner">
-              <i className="bi bi-arrow-clockwise"></i>
-            </div>
+            Loading <br />
+            <Spinner />
           </h1>
         </div>
       </div>
