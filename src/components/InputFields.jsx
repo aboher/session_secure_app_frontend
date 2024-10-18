@@ -59,52 +59,54 @@ export function RoleCheckbox({ setRoleModerator, setRoleAdmin }) {
     <>
       <p>Choose a role:</p>
       <div className="mb-3">
-        <DisabledCheckBox label={"User"} />
+        <DisabledCheckBox label={"User"} id="user" />
         <Checkbox
           onChange={() => {
             setRoleModerator((prev) => !prev);
           }}
           label={"Moderator"}
+          id="moderator"
         />
         <Checkbox
           onChange={() => {
             setRoleAdmin((prev) => !prev);
           }}
           label={"Admin"}
+          id="admin"
         />
       </div>
     </>
   );
 }
 
-export function DisabledCheckBox({ label }) {
+export function DisabledCheckBox({ label, id }) {
   return (
     <div className="form-check form-check-inline">
       <input
         className="form-check-input"
         type="checkbox"
-        id="inlineCheckbox3"
+        id={id}
         value="option1"
         checked
         disabled
       />
-      <label className="form-check-label" htmlFor="inlineCheckbox3">
+      <label className="form-check-label" htmlFor={id}>
         {label}
       </label>
     </div>
   );
 }
 
-export function Checkbox({ onChange, label }) {
+export function Checkbox({ onChange, label, id }) {
   return (
     <div className="form-check form-check-inline">
       <input
         className="form-check-input"
         type="checkbox"
-        id="inlineCheckbox1"
+        id={id}
         onChange={onChange}
       />
-      <label className="form-check-label" htmlFor="inlineCheckbox1">
+      <label className="form-check-label" htmlFor={id}>
         {label}
       </label>
     </div>
