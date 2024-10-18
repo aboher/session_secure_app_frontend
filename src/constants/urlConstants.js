@@ -13,3 +13,5 @@ export const USERS_WITH_ACTIVE_SESSION_PATH =
   "/session/emails-of-all-active-sessions";
 export const ALL_ATTRIBUTES_PATH = "/session/attributes";
 export const HANDLE_ATTRIBUTE_BY_NAME_PATH = "/session/attribute?name=";
+export const REQUEST_TO_DELETE_ACCOUNT_PATH = "/users/request-account-deletion";
+export const DELETE_ACCOUNT_PATH = "/users/delete-account";

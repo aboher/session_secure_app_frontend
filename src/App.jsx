@@ -17,6 +17,7 @@ import AdminRoutes from "./pages/admin/AdminRoutes";
 import RequireAdminAuth from "./components/RequireAdminAuth";
 import ModeratorRoutes from "./pages/moderator/ModeratorRoutes";
 import RequireModeratorAuth from "./components/RequireModeratorAuth";
+import DeleteAccount from "./pages/DeleteAccount";
 
 function App() {
   return (
@@ -70,6 +71,14 @@ function App() {
             <RequireUnauth>
               <ConfirmEmail />
             </RequireUnauth>
+          }
+        />
+        <Route
+          path="/delete-account"
+          element={
+            <RequireAuth>
+              <DeleteAccount />
+            </RequireAuth>
           }
         />
         <Route
