@@ -1,4 +1,4 @@
-export const BACKEND_URL = "http://localhost:8080";
+export const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
 export const SESSION_INFO_BY_ID_PATH = "/session/info?id=";
 export const ALL_ACTIVE_SESSIONS_IDS_PATH = "/session/active-sessions-ids";
 export const DELETE_SESSION_BY_ID_PATH = "/session/delete-session?id=";
