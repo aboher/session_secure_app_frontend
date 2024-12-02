@@ -14,8 +14,11 @@ const axiosInstance = axios.create({
 axiosInstance.interceptors.request.use(
   (config) => {
     const csrfToken = Cookies.get(CSRF_TOKEN_COOKIE_NAME);
+    console.log("document.cookie: ", document.cookie);
+    console.log("CSRF Token: ", csrfToken);
     if (csrfToken && ["post", "put", "patch", "delete"].includes(config.method)) {
       config.headers[CSRF_TOKEN_HEADER_NAME] = csrfToken;
+      console.log("CSRF Token was added!")
     }
     return config;
   },
