@@ -1,6 +1,6 @@
 // This script it's a Cloudflare Function and it's meant to work as a proxy for the
-// frontend deployed in Cloudflare Page to comunicate the frontend with the backend as if
-// it was not cross-site communication. CORS policy are still enforeced because any
+// frontend deployed in Cloudflare Page to communicate the frontend with the backend as if
+// it was not cross-site communication. CORS policy are still enforced because any
 // origin that's not https://session-secure-app-frontend.pages.dev/ will be rejected by the backend
 
 export async function onRequest(context) {
