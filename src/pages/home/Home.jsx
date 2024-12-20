@@ -36,13 +36,13 @@ export default function Home() {
       </div>
       <div className="container">
         <div className="row">
-          <div className="col col-lg-3 border border-secondary-subtle rounded-3 text-bg-light p-3">
+          <div className="col col-12 col-md-3 mb-3 border border-secondary-subtle rounded-3 text-bg-light p-3">
             <UserSection />
           </div>
-          <div className="col col-lg-3 mx-auto border border-secondary-subtle rounded-3 text-bg-light p-3">
+          <div className="col col-12 col-md-3 mx-md-auto mb-3 border border-secondary-subtle rounded-3 text-bg-light p-3">
             <ModeratorSection />
           </div>
-          <div className="col col-lg-3 border border-secondary-subtle rounded-3 text-bg-light p-3">
+          <div className="col col-12 col-md-3 mb-3 border border-secondary-subtle rounded-3 text-bg-light p-3">
             <AdminSection />
           </div>
         </div>

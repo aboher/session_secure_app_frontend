@@ -7,16 +7,12 @@ export default function UserSection() {
   return (
     <>
       <h2 className="mb-3">User Role Required</h2>
-      <Link
-        to={"/user/session-info/current-session"}
-        className="btn btn-primary mb-3"
-      >
+      <Link to={"/user/session-info/current-session"} className="btn btn-primary mb-3">
         View Current Session Information
       </Link>
+      <br />
       <Link
-        to={`/user/active-sessions/${
-          session?.email ? session.email : "current-user"
-        }`}
+        to={`/user/active-sessions/${session?.email ? session.email : "current-user"}`}
         className="btn btn-primary"
       >
         View All Active Sessions
